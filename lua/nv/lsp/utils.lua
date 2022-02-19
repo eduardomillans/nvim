@@ -48,6 +48,11 @@ M.get_on_attach = function(enable_formatting)
       severity_sort = true,
       update_in_insert = true,
     })
+
+    for _, type in ipairs({ "Error", "Warn", "Hint", "Info" }) do
+      local hl = ("DiagnosticSign%s"):format(type)
+      vim.fn.sign_define(hl, { text = ">>", texthl = hl, numhl = hl })
+    end
   end
 end
 

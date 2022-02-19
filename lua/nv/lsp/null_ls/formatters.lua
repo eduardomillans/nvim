@@ -13,9 +13,6 @@ M.set = function(sources, null_ls)
     goimports = {},
     prettierd = {
       disabled_filetypes = { "markdown" },
-      env = {
-        PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.config/nvim/.prettierrc.json"),
-      },
     },
     shfmt = {
       filetypes = { "sh", "zsh" },
