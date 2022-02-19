@@ -57,9 +57,6 @@ local setup = function()
     -- Surround
     use({ "tpope/vim-surround" })
 
-    -- Notifications
-    use({ "rcarriga/nvim-notify" })
-
     -- Markdown
     use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install" })
   end)
