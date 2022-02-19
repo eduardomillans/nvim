@@ -27,7 +27,6 @@ local options = {
   opt("updatetime", 250),
   opt("complete", ".,w,b,k"),
   opt("fillchars", "vert:\\ "),
-  -- opt("inccommand", "split"),
   opt("whichwrap", "<,>,[,],h,l", "append"),
   opt("splitbelow", true),
   opt("splitright", true),
@@ -49,7 +48,7 @@ local options = {
   opt("shiftwidth", nv.len.indentation.default),
   opt("wrap ", false),
   opt("relativenumber", true),
-  opt("signcolumn", "number"),
+  opt("signcolumn", "yes"),
   opt("conceallevel", 0),
 }
 

@@ -6,7 +6,7 @@ local M = {}
 -- Statusline components
 -- *******************************
 M.filename = function()
-  return "%f %m"
+  return "%F %m"
 end
 
 M.git = function()

@@ -1,5 +1,6 @@
 local sysname = vim.loop.os_uname().sysname
 local stdpath = vim.fn.stdpath
+local expand = vim.fn.expand
 local is_win = sysname == "Windows_NT"
 
 -- *******************************
@@ -25,3 +26,9 @@ vim.g.nv = {
     },
   },
 }
+
+-- *******************************
+-- Load env variables
+-- *******************************
+vim.env.PRETTIERD_DEFAULT_CONFIG = expand("~/.config/nvim/.prettierrc.json")
+vim.env.WORKSPACE = expand("~/dev/java")
