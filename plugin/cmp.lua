@@ -5,6 +5,12 @@ local stats = vim.api.nvim_list_uis()[1]
 local screen_width = stats.width
 local screen_height = stats.height
 
+local menu = {
+  nvim_lsp = "[Lsp]",
+  nvim_lua = "[Lua]",
+  path = "[Path]",
+}
+
 -- *******************************
 -- Cmp setup
 -- *******************************
@@ -23,6 +29,12 @@ local setup = function()
       -- I'm not sure
       maxwidth = math.ceil(screen_width * 0.35),
       maxheight = math.ceil(screen_height * 0.35),
+    },
+    formatting = {
+      format = function(entry, vim_item)
+        vim_item.menu = menu[entry.source.name]
+        return vim_item
+      end,
     },
     mapping = {
       ["<C-y>"] = cmp.config.disable,
