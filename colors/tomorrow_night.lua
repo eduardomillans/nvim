@@ -120,8 +120,8 @@ hi.Pmenu = { guifg = colors.base05, guibg = colors.base01, gui = nil, guisp = ni
 hi.PmenuSel = { guifg = colors.base01, guibg = colors.base05, gui = nil, guisp = nil }
 hi.PmenuSbar = { guifg = colors.base05, guibg = colors.base01, gui = nil, guisp = nil }
 hi.PmenuThumb = { guifg = colors.base01, guibg = colors.base05, gui = nil, guisp = nil }
-hi.TabLine = { guifg = colors.base03, guibg = colors.base01, gui = nil, guisp = nil }
-hi.TabLineFill = { guifg = colors.base03, guibg = colors.base01, gui = nil, guisp = nil }
+hi.TabLine = { guifg = colors.base03, guibg = colors.base01, gui = "none", guisp = nil }
+hi.TabLineFill = { guifg = colors.base01, guibg = colors.base01, gui = nil, guisp = nil }
 hi.TabLineSel = { guifg = colors.base0B, guibg = colors.base01, gui = nil, guisp = nil }
 hi.NormalFloat = { guifg = colors.base04, guibg = colors.base01, gui = nil, guisp = nil }
 hi.FloatBorder = { guifg = colors.base04, guibg = colors.base00, gui = nil, guisp = nil }
@@ -276,3 +276,7 @@ hi.TreesitterContext = { guifg = nil, guibg = colors.base01, gui = nil, guisp = 
 hi.TelescopeSelection = { guifg = colors.base08, guibg = colors.base00, gui = nil, guisp = nil }
 hi.TelescopeMultiSelection = { guifg = colors.base0B, guibg = colors.base00, gui = nil, guisp = nil }
 hi.TelescopeMatching = { guifg = "none", guibg = nil, gui = nil, guisp = nil }
+
+hi.GitSignsAdd = { guifg = colors.base0B, guibg = nil, gui = nil, guisp = nil }
+hi.GitSignsChange = { guifg = colors.base0A, guibg = nil, gui = nil, guisp = nil }
+hi.GitSignsChange = { guifg = colors.base0A, guibg = nil, gui = nil, guisp = nil }

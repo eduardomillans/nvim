@@ -53,6 +53,7 @@ local setup = function()
 
     -- Git
     use({ "tpope/vim-fugitive" })
+    use({ "lewis6991/gitsigns.nvim" })
 
     -- Comments
     use({ "b3nj5m1n/kommentary" })

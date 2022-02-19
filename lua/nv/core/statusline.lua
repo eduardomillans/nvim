@@ -10,8 +10,16 @@ M.filename = function()
 end
 
 M.git = function()
-  local branch = vim.fn.FugitiveHead()
-  return #branch ~= 0 and (" %s"):format(branch) or ""
+  local file = ("%s/.git/HEAD"):format(vim.loop.cwd())
+
+  if vim.fn.filereadable(file) == 0 then
+    return ""
+  end
+
+  local head = vim.fn.readfile(file)[1]
+  local branch = vim.fn.substitute(head, [[\C^ref: \%(refs/\%(heads/\|remotes/\|tags/\)\=\)\=]], "", "")
+
+  return (" %s"):format(branch)
 end
 
 M.lsp = function()
@@ -41,7 +49,7 @@ M.fileformat = function()
 end
 
 M.location = function()
-  return "%l/%c"
+  return "%l:%c"
 end
 
 -- *******************************
