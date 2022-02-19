@@ -16,6 +16,7 @@ local setup = function()
       "javascript",
       "json",
       "jsonc",
+      "java",
       "lua",
       "make",
       "php",
