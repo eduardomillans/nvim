@@ -134,10 +134,10 @@ hi.Constant = { guifg = colors.base09, guibg = nil, gui = nil, guisp = nil }
 hi.Define = { guifg = colors.base0E, guibg = nil, gui = nil, guisp = nil }
 hi.Delimiter = { guifg = colors.base0F, guibg = nil, gui = nil, guisp = nil }
 hi.Float = { guifg = colors.base09, guibg = nil, gui = nil, guisp = nil }
-hi.Function = { guifg = colors.base0D, guibg = nil, gui = nil, guisp = nil }
+hi.Function = { guifg = colors.base0D, guibg = nil, gui = "italic", guisp = nil }
 hi.Identifier = { guifg = colors.base05, guibg = nil, gui = nil, guisp = nil }
 hi.Include = { guifg = colors.base0D, guibg = nil, gui = nil, guisp = nil }
-hi.Keyword = { guifg = colors.base0E, guibg = nil, gui = nil, guisp = nil }
+hi.Keyword = { guifg = colors.base0E, guibg = nil, gui = "italic", guisp = nil }
 hi.Label = { guifg = colors.base0A, guibg = nil, gui = nil, guisp = nil }
 hi.Number = { guifg = colors.base09, guibg = nil, gui = nil, guisp = nil }
 hi.Operator = { guifg = colors.base0D, guibg = nil, gui = nil, guisp = nil }
@@ -194,9 +194,9 @@ hi.gitcommitDiscardedFile = { guifg = colors.base08, guibg = nil, gui = "bold", 
 hi.gitcommitSelectedFile = { guifg = colors.base0B, guibg = nil, gui = "bold", guisp = nil }
 
 hi.DiagnosticError = { guifg = colors.base08, guibg = nil, gui = nil, guisp = nil }
-hi.DiagnosticWarn = { guifg = colors.base0E, guibg = nil, gui = nil, guisp = nil }
-hi.DiagnosticInfo = { guifg = colors.base05, guibg = nil, gui = nil, guisp = nil }
-hi.DiagnosticHint = { guifg = colors.base0C, guibg = nil, gui = nil, guisp = nil }
+hi.DiagnosticWarn = { guifg = colors.base0A, guibg = nil, gui = nil, guisp = nil }
+hi.DiagnosticInfo = { guifg = colors.base0D, guibg = nil, gui = nil, guisp = nil }
+hi.DiagnosticHint = { guifg = colors.base0E, guibg = nil, gui = nil, guisp = nil }
 hi.DiagnosticUnderlineError = { guifg = nil, guibg = nil, gui = "undercurl", guisp = colors.base08 }
 hi.DiagnosticUnderlineWarning = { guifg = nil, guibg = nil, gui = "undercurl", guisp = colors.base0E }
 hi.DiagnosticUnderlineWarn = { guifg = nil, guibg = nil, gui = "undercurl", guisp = colors.base0E }
@@ -233,8 +233,8 @@ hi.TSFunction = { guifg = colors.base0D, guibg = nil, gui = nil, guisp = nil }
 hi.TSFuncBuiltin = { guifg = colors.base0D, guibg = nil, gui = nil, guisp = nil }
 hi.TSFuncMacro = { guifg = colors.base08, guibg = nil, gui = nil, guisp = nil }
 hi.TSInclude = { guifg = colors.base0D, guibg = nil, gui = nil, guisp = nil }
-hi.TSKeyword = { guifg = colors.base0E, guibg = nil, gui = nil, guisp = nil }
-hi.TSKeywordFunction = { guifg = colors.base0E, guibg = nil, gui = nil, guisp = nil }
+hi.TSKeyword = { guifg = colors.base0E, guibg = nil, gui = "italic", guisp = nil }
+hi.TSKeywordFunction = { guifg = colors.base0E, guibg = nil, gui = "italic", guisp = nil }
 hi.TSKeywordOperator = { guifg = colors.base0E, guibg = nil, gui = nil, guisp = nil }
 hi.TSLabel = { guifg = colors.base0A, guibg = nil, gui = nil, guisp = nil }
 hi.TSMethod = { guifg = colors.base0D, guibg = nil, gui = nil, guisp = nil }
