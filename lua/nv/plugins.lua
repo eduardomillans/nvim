@@ -48,6 +48,9 @@ local setup = function()
     use({ "nvim-telescope/telescope.nvim" })
     use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 
+    -- Quickfix
+    use({ "kevinhwang91/nvim-bqf" })
+
     -- Git
     use({ "tpope/vim-fugitive" })
 
