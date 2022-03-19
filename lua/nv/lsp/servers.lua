@@ -76,11 +76,6 @@ return {
       provideFormatter = false,
     },
   },
-  jdtls = {
-    capabilities = utils.get_capabilities(),
-    on_attach = utils.get_on_attach(false),
-    filetypes = { "java" },
-  },
   pyright = {
     capabilities = utils.get_capabilities(),
     on_attach = utils.get_on_attach(false),

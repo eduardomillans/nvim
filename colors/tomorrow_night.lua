@@ -277,6 +277,6 @@ hi.TelescopeSelection = { guifg = colors.base08, guibg = colors.base00, gui = ni
 hi.TelescopeMultiSelection = { guifg = colors.base0B, guibg = colors.base00, gui = nil, guisp = nil }
 hi.TelescopeMatching = { guifg = "none", guibg = nil, gui = nil, guisp = nil }
 
-hi.GitSignsAdd = { guifg = colors.base0B, guibg = nil, gui = nil, guisp = nil }
-hi.GitSignsChange = { guifg = colors.base0A, guibg = nil, gui = nil, guisp = nil }
-hi.GitSignsChange = { guifg = colors.base0A, guibg = nil, gui = nil, guisp = nil }
+hi.CmpItemAbbrMatch = { guifg = colors.base05, guibg = nil }
+hi.CmpItemAbbrMatchFuzzy = { guifg = colors.base05, guibg = nil }
+hi.CmpItemAbbrDeprecated = { guifg = colors.base05, guibg = nil }

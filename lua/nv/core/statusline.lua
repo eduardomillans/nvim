@@ -22,7 +22,17 @@ M.git = function()
   return (" %s"):format(branch)
 end
 
-M.lsp = function()
+M.lsp_client = function()
+  for _, client in ipairs(vim.lsp.buf_get_clients()) do
+    if client.name ~= "null-ls" then
+      return client.name
+    end
+  end
+
+  return ""
+end
+
+M.lsp_diagnostics = function()
   local diagnostics = {}
 
   for _, level in ipairs({ "ERROR", "WARN", "INFO", "HINT" }) do
@@ -65,7 +75,6 @@ Statusline = setmetatable(M, {
       self.filename(),
       self.git(),
       "%=",
-      -- self.lsp(),
       self.filetype(),
       self.fileencoding(),
       self.fileformat(),

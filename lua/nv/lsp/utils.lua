@@ -38,9 +38,10 @@ M.get_on_attach = function(enable_formatting)
 
     -- Override diagnostic's config
     vim.diagnostic.config({
-      virtual_text = {
+      --[[ virtual_text = {
         prefix = "●",
-      },
+      }, ]]
+      virtual_text = false,
       float = {
         border = "rounded",
       },

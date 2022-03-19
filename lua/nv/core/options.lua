@@ -23,6 +23,7 @@ local options = {
   opt("undodir", join_path(nv.dir.home, ".cache", "nvim", "undo")),
   opt("backupdir", join_path(nv.dir.home, ".cache", "nvim", "backup")),
   opt("viewdir", join_path(nv.dir.home, ".cache", "nvim", "view")),
+  opt("laststatus", 3),
   opt("history", 2000),
   opt("updatetime", 250),
   opt("complete", ".,w,b,k"),

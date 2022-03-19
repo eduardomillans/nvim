@@ -64,6 +64,7 @@ end
 -- *******************************
 local set_keymaps = function()
   local keymaps = {
+    map({ "i", "n" }, "<C-b>", "Telescope buffers", { "cmd", "silent" }),
     map({ "i", "n" }, "<C-f>", "Telescope find_files", { "cmd", "silent" }),
     map({ "i", "n" }, "<C-s>", "Telescope live_grep", { "cmd", "silent" }),
     map({ "i", "n" }, "<C-g>", 'lua require("nv.telescope.pickers").gitignore()', { "cmd", "silent" }),

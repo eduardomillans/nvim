@@ -16,10 +16,8 @@ local setup = function()
       "javascript",
       "json",
       "jsonc",
-      "java",
       "lua",
       "make",
-      "php",
       "python",
       "rust",
       "toml",
@@ -30,7 +28,6 @@ local setup = function()
     },
     highlight = {
       enable = true,
-      disable = { "php" },
     },
   })
 end

@@ -105,51 +105,6 @@ M.map = function(modes, key, action, opts)
 end
 
 -- *******************************
--- Vim autocmd
--- *******************************
-M.autocmd = function(event, pattern, action)
-  vim.validate({
-    event = {
-      event,
-      function(value)
-        return type(value) == "string" or type(value) == "table"
-      end,
-      "string or table",
-    },
-    pattern = {
-      pattern,
-      function(value)
-        return type(value) == "string" or type(value) == "table"
-      end,
-      "string or table",
-    },
-    action = { action, "string" },
-  })
-
-  event = type(event) == "table" and table.concat(event, ",") or event
-  pattern = type(event) == "table" and table.concat(pattern, ",") or pattern
-
-  api.nvim_command(("autocmd %s %s %s"):format(event, pattern, action))
-end
-
--- *******************************
--- Vim autogroup
--- *******************************
-M.autogroup = function(group, specs)
-  vim.validate({
-    group = { group, "string" },
-    specs = { specs, "table" },
-  })
-
-  api.nvim_command(("augroup %s"):format(group))
-  api.nvim_command("autocmd!")
-  for _, spec in ipairs(specs) do
-    M.autocmd(spec[1], spec[2], spec[3])
-  end
-  api.nvim_command("augroup END")
-end
-
--- *******************************
 -- Vim command
 -- *******************************
 M.command = function(name, action)
@@ -171,23 +126,10 @@ M.join_path = function(...)
 end
 
 -- *******************************
--- Format
+-- Sync plugins
 -- *******************************
-M.format = function()
-  local clients = vim.tbl_filter(function(client)
-    return client.supports_method("textDocument/formatting")
-  end, vim.lsp.buf_get_clients())
-
-  if #clients > 0 then
-    cmd("silent lua vim.lsp.buf.formatting_sync({}, 1000)")
-    return
-  end
-
-  local pos = vim.fn.getpos(".")
-  cmd("normal gg=G")
-  vim.fn.setpos(".", pos)
-  cmd("normal zz")
-  cmd("silent! write")
+M.sync = function()
+  cmd(("source %s/lua/nv/plugins.lua | PackerSync"):format(vim.g.nv.dir.nvim.config))
 end
 
 return M
