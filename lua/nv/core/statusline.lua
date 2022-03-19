@@ -1,15 +1,14 @@
-local autogroup = require("nv.utils").autogroup
-
-local M = {}
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
 
 -- *******************************
 -- Statusline components
 -- *******************************
-M.filename = function()
+local filename = function()
   return "%F %m"
 end
 
-M.git = function()
+local git = function()
   local file = ("%s/.git/HEAD"):format(vim.loop.cwd())
 
   if vim.fn.filereadable(file) == 0 then
@@ -22,7 +21,7 @@ M.git = function()
   return (" %s"):format(branch)
 end
 
-M.lsp_client = function()
+local lsp_client = function()
   for _, client in ipairs(vim.lsp.buf_get_clients()) do
     if client.name ~= "null-ls" then
       return client.name
@@ -32,7 +31,7 @@ M.lsp_client = function()
   return ""
 end
 
-M.lsp_diagnostics = function()
+local lsp_diagnostics = function()
   local diagnostics = {}
 
   for _, level in ipairs({ "ERROR", "WARN", "INFO", "HINT" }) do
@@ -46,46 +45,60 @@ M.lsp_diagnostics = function()
   return table.concat(diagnostics, "  ")
 end
 
-M.filetype = function()
+local filetype = function()
   return vim.bo.filetype
 end
 
-M.fileencoding = function()
+local fileencoding = function()
   return #vim.bo.fileencoding ~= 0 and vim.bo.fileencoding or vim.o.encoding
 end
 
-M.fileformat = function()
+local fileformat = function()
   return vim.o.fileformat
 end
 
-M.location = function()
+local location = function()
   return "%l:%c"
 end
 
 -- *******************************
 -- Set statusline
 -- *******************************
-Statusline = setmetatable(M, {
-  __call = function(self, active)
-    if not active then
-      return self.filename()
-    end
+local set_statusline = function(active)
+  if not active then
+    return filename()
+  end
 
-    local components = {
-      self.filename(),
-      self.git(),
-      "%=",
-      self.filetype(),
-      self.fileencoding(),
-      self.fileformat(),
-      self.location(),
-    }
+  local components = {
+    filename(),
+    git(),
+    "%=",
+    filetype(),
+    fileencoding(),
+    fileformat(),
+    location(),
+  }
 
-    return table.concat(components, "  ")
+  return table.concat(components, "  ")
+end
+
+-- *******************************
+-- Statusline autocmds
+-- *******************************
+local group = augroup("Statusline", { clear = true })
+
+autocmd("WinEnter,BufEnter", {
+  pattern = "*",
+  callback = function()
+    set_statusline(true)
   end,
+  group = group,
 })
 
-autogroup("Statusline", {
-  { "WinEnter,BufEnter", "*", "setlocal statusline=%!v:lua.Statusline(v:true)" },
-  { "WinLeave,BufLeave", "*", "setlocal statusline=%!v:lua.Statusline(v:false)" },
+autocmd("WinLeave,BufLeave", {
+  pattern = "*",
+  callback = function()
+    set_statusline(false)
+  end,
+  group = group,
 })
