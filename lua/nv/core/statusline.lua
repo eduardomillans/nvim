@@ -79,7 +79,7 @@ local set_statusline = function(active)
     location(),
   }
 
-  return table.concat(components, "  ")
+  vim.api.nvim_set_option("statusline", table.concat(components, "  "))
 end
 
 -- *******************************
