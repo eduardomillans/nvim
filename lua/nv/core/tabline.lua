@@ -1,3 +1,4 @@
+-- TODO: Convert to lua
 vim.cmd([[
   function! MyTabLine()
     let s = ''
@@ -28,5 +29,5 @@ vim.cmd([[
     return fnamemodify(expand(bufname(buflist[winnr - 1])), ":~:.")
   endfunction
 
-set tabline=%!MyTabLine()
+  set tabline=%!MyTabLine()
 ]])

@@ -1,15 +1,61 @@
-local autocmd = vim.api.nvim_create_autocmd
-local augroup = vim.api.nvim_create_augroup
+local cwd = vim.loop.cwd()
+local modes = {
+  ["n"] = "NORMAL",
+  ["no"] = "O-PENDING",
+  ["nov"] = "O-PENDING",
+  ["noV"] = "O-PENDING",
+  ["no\22"] = "O-PENDING",
+  ["niI"] = "NORMAL",
+  ["niR"] = "NORMAL",
+  ["niV"] = "NORMAL",
+  ["nt"] = "NORMAL",
+  ["v"] = "VISUAL",
+  ["vs"] = "VISUAL",
+  ["V"] = "V-LINE",
+  ["Vs"] = "V-LINE",
+  ["\22"] = "V-BLOCK",
+  ["\22s"] = "V-BLOCK",
+  ["s"] = "SELECT",
+  ["S"] = "S-LINE",
+  ["\19"] = "S-BLOCK",
+  ["i"] = "INSERT",
+  ["ic"] = "INSERT",
+  ["ix"] = "INSERT",
+  ["R"] = "REPLACE",
+  ["Rc"] = "REPLACE",
+  ["Rx"] = "REPLACE",
+  ["Rv"] = "V-REPLACE",
+  ["Rvc"] = "V-REPLACE",
+  ["Rvx"] = "V-REPLACE",
+  ["c"] = "COMMAND",
+  ["cv"] = "EX",
+  ["ce"] = "EX",
+  ["r"] = "REPLACE",
+  ["rm"] = "MORE",
+  ["r?"] = "CONFIRM",
+  ["!"] = "SHELL",
+  ["t"] = "TERMINAL",
+}
 
 -- *******************************
 -- Statusline components
 -- *******************************
+local mode = function()
+  return modes[vim.api.nvim_get_mode().mode]:upper()
+end
+
 local filename = function()
-  return "%F %m"
+  local path = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.")
+
+  if path == "" or path == "." then
+    path = "[No Name]"
+  end
+
+  return path
 end
 
 local git = function()
-  local file = ("%s/.git/HEAD"):format(vim.loop.cwd())
+  local file = ("%s/.git/HEAD"):format(cwd)
 
   if vim.fn.filereadable(file) == 0 then
     return ""
@@ -18,7 +64,7 @@ local git = function()
   local head = vim.fn.readfile(file)[1]
   local branch = vim.fn.substitute(head, [[\C^ref: \%(refs/\%(heads/\|remotes/\|tags/\)\=\)\=]], "", "")
 
-  return (" %s"):format(branch)
+  return vim.trim(("%s %s"):format(#branch > 0 and "" or "", branch))
 end
 
 local lsp_client = function()
@@ -54,7 +100,7 @@ local fileencoding = function()
 end
 
 local fileformat = function()
-  return vim.o.fileformat
+  return vim.bo.fileformat
 end
 
 local location = function()
@@ -64,41 +110,64 @@ end
 -- *******************************
 -- Set statusline
 -- *******************************
-local set_statusline = function(active)
-  if not active then
-    return filename()
-  end
-
+StatusLine = function()
   local components = {
-    filename(),
+    "%#StatusLineA#",
+    " ",
+    mode(),
+    " ",
+    "%#StatusLineAS#",
+    "",
+    ---
+    "%#StatuslineB#",
+    " ",
+    -- filename(),
     git(),
+    " ",
+    "%#StatuslineBS#",
+    "",
+    ---
+    "%#StatusLineC#",
+    " ",
+    -- git(),
+    filename(),
+    ---
     "%=",
+    ---
+    "%#StatusLineC#",
+    lsp_client(),
+    ---
+    " ",
+    "%#StatuslineBS#",
+    "",
+    "%#StatuslineB#",
+    " ",
     filetype(),
+    "  ",
     fileencoding(),
+    "  ",
     fileformat(),
+    ---
+    " ",
+    "%#StatuslineAS#",
+    "",
+    "",
+    "%#StatuslineA#",
+    " ",
     location(),
+    " ",
   }
 
-  vim.api.nvim_set_option("statusline", table.concat(components, "  "))
+  return table.concat(components)
 end
 
 -- *******************************
--- Statusline autocmds
+-- Statusline autocmd
 -- *******************************
-local group = augroup("Statusline", { clear = true })
-
-autocmd("WinEnter,BufEnter", {
-  pattern = "*",
-  callback = function()
-    set_statusline(true)
-  end,
-  group = group,
-})
-
-autocmd("WinLeave,BufLeave", {
-  pattern = "*",
-  callback = function()
-    set_statusline(false)
-  end,
-  group = group,
-})
+vim.cmd([[
+  augroup StatusLine
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal statusline=%!v:lua.StatusLine()
+  au User FugitiveChanged doautocmd BufEnter
+  augroup END
+]])
