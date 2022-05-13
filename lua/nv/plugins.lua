@@ -24,7 +24,7 @@ local setup = function()
     use({ "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" })
 
     -- Personal
-    use({ "eduardomillans/maximizer.nvim" })
+    use({ "~/dev/projects/maximizer.nvim" })
 
     -- Lsp
     use({ "neovim/nvim-lspconfig" })
@@ -43,13 +43,20 @@ local setup = function()
 
     -- Syntax highlight
     use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+    use({ "nvim-treesitter/playground" })
 
     -- Fuzzy finder
     use({ "nvim-telescope/telescope.nvim" })
     use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 
+    -- Progress
+    use({ "j-hui/fidget.nvim" })
+
     -- Git
     use({ "tpope/vim-fugitive" })
+
+    -- Colorize
+    use({ "norcalli/nvim-colorizer.lua" })
 
     -- Comments
     use({ "b3nj5m1n/kommentary" })
