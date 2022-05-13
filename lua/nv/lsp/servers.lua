@@ -76,6 +76,11 @@ return {
       provideFormatter = false,
     },
   },
+  prismals = {
+    capabilities = utils.get_capabilities(),
+    on_attach = utils.get_on_attach(true),
+    filetypes = { "prisma" },
+  },
   pyright = {
     capabilities = utils.get_capabilities(),
     on_attach = utils.get_on_attach(false),
@@ -97,6 +102,10 @@ return {
     settings = {
       ["rust-analyzer"] = {},
     },
+  },
+  rust_tools = {
+    capabilities = utils.get_capabilities(),
+    on_attach = utils.get_on_attach(false),
   },
   sumneko_lua = {
     capabilities = utils.get_capabilities(),
@@ -120,6 +129,10 @@ return {
         },
       },
     },
+  },
+  tailwindcss = {
+    capabilities = utils.get_capabilities(),
+    on_attach = utils.get_on_attach(false),
   },
   tsserver = {
     capabilities = utils.get_capabilities(),
@@ -157,6 +170,17 @@ return {
         fromVimruntime = true,
       },
       vimruntime = "",
+    },
+  },
+  yamlls = {
+    capabilities = utils.get_capabilities(),
+    on_attach = utils.get_on_attach(false),
+    filetypes = { "yaml", "yaml.docker-compose" },
+    yaml = {
+      schemaStore = { enable = true },
+      --[[ schemas = {
+        ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "docker-compose.yaml",
+      }, ]]
     },
   },
 }
