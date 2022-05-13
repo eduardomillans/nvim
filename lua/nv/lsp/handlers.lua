@@ -1,8 +1,8 @@
 local M = {}
 
 local stats = vim.api.nvim_list_uis()[1]
-local screen_width = stats.width
-local screen_height = stats.height
+local maxwidth = math.ceil(stats.width > 175 and stats.width * 0.5 or stats.width * 0.35)
+local maxheight = math.ceil(stats.height > 35 and stats.height * 0.25 or stats.height * 0.5)
 
 -- *******************************
 -- Signature help
@@ -28,8 +28,8 @@ M.signature_help = function()
     config = config or {}
     config.border = "rounded"
     config.focus_id = ctx.method
-    config.max_width = math.ceil(screen_width * 0.35)
-    config.max_height = math.ceil(screen_height * 0.35)
+    config.max_width = maxwidth
+    config.max_height = maxheight
 
     if not (result and result.signatures and result.signatures[1]) then
       if config.silent ~= true then
@@ -71,8 +71,8 @@ M.hover = function()
     config = config or {}
     config.border = "rounded"
     config.focus_id = ctx.method
-    config.max_width = math.ceil(screen_width * 0.35)
-    config.max_height = math.ceil(screen_height * 0.35)
+    config.max_width = maxwidth
+    config.max_height = maxheight
 
     if not (result and result.contents) then
       return

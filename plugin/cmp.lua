@@ -2,8 +2,8 @@ local is_installed, cmp = pcall(require, "cmp")
 local _, types = pcall(require, "cmp.types")
 
 local stats = vim.api.nvim_list_uis()[1]
-local screen_width = stats.width
-local screen_height = stats.height
+local maxwidth = math.ceil(stats.width > 175 and stats.width * 0.5 or stats.width * 0.35)
+local maxheight = math.ceil(stats.height > 35 and stats.height * 0.25 or stats.height * 0.5)
 
 local menu = {
   nvim_lsp = "[Lsp]",
@@ -24,11 +24,15 @@ local setup = function()
         vim.fn["vsnip#anonymous"](args.body)
       end,
     },
-    documentation = {
-      border = "rounded",
-      -- I'm not sure
-      maxwidth = math.ceil(screen_width * 0.35),
-      maxheight = math.ceil(screen_height * 0.35),
+    window = {
+      completion = {
+        border = "rounded",
+      },
+      documentation = {
+        border = "rounded",
+        maxwidth = maxwidth,
+        maxheight = maxheight,
+      },
     },
     formatting = {
       format = function(entry, vim_item)
