@@ -30,10 +30,7 @@ local keymaps = {
   map("n", ",nh", "set hlsearch!", { "cmd", "silent" }),
 
   -- Normal mode in terminal
-  map("t", "<C-c>", "<C-\\><C-n>", { "noremap" }),
-
-  -- Maximizer
-  map("n", "<C-w>z", "Maximizer", { "cmd", "silent" }),
+  map("t", "<C-\\><Esc>", "<C-\\><C-n>", { "noremap" }),
 }
 
 -- *******************************

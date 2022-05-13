@@ -28,8 +28,8 @@ M.get_on_attach = function(enable_formatting)
       map("n", "gy", "lua vim.lsp.buf.type_defenition()", { "cmd", "silent", "noremap" }),
       map("n", "gr", "lua vim.lsp.buf.rename()", { "cmd", "silent", "noremap" }),
       map("n", "<M-CR>", "lua vim.lsp.buf.code_action()", { "cmd", "silent", "noremap" }),
-      map("n", "gx", "lua vim.lsp.buf.references()", { "cmd", "silent", "noremap" }),
-      map("n", ",gd", "lua vim.diagnostic.setqflist()", { "cmd", "silent", "noremap" }),
+      -- map("n", "gx", "lua vim.lsp.buf.references()", { "cmd", "silent", "noremap" }),
+      -- map("n", ",gd", "lua vim.diagnostic.setqflist()", { "cmd", "silent", "noremap" }),
     }
 
     for _, keymap in ipairs(keymaps) do
@@ -38,10 +38,9 @@ M.get_on_attach = function(enable_formatting)
 
     -- Override diagnostic's config
     vim.diagnostic.config({
-      --[[ virtual_text = {
+      virtual_text = {
         prefix = "●",
-      }, ]]
-      virtual_text = false,
+      },
       float = {
         border = "rounded",
       },

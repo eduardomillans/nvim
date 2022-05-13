@@ -33,7 +33,7 @@ local options = {
   opt("splitright", true),
   opt("backspace", "indent,eol,start"),
   opt("completeopt", "menu,menuone,noselect"),
-  -- opt("showmode", false),
+  opt("showmode", false),
   -- opt("showcmd", false),
   opt("shortmess", "c", "append"),
   -- opt("showtabline", 2),

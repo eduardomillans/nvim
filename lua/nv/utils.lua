@@ -105,31 +105,10 @@ M.map = function(modes, key, action, opts)
 end
 
 -- *******************************
--- Vim command
--- *******************************
-M.command = function(name, action)
-  vim.validate({
-    name = { name, "string" },
-    action = { action, "string" },
-  })
-
-  -- name = name:sub(1, 1):upper .. name:sub(2)
-
-  cmd(("command! %s %s"):format(name, action))
-end
-
--- *******************************
 -- Join path
 -- *******************************
 M.join_path = function(...)
   return table.concat({ ... }, sep)
-end
-
--- *******************************
--- Sync plugins
--- *******************************
-M.sync = function()
-  cmd(("source %s/lua/nv/plugins.lua | PackerSync"):format(vim.g.nv.dir.nvim.config))
 end
 
 return M

@@ -18,6 +18,7 @@ local setup = function()
       "jsonc",
       "lua",
       "make",
+      "prisma",
       "python",
       "rust",
       "toml",
