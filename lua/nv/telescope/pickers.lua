@@ -4,35 +4,15 @@ local config = require("telescope.config").values
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 local themes = require("telescope.themes")
-local Job = require("plenary.job")
 
 local join_path = require("nv.utils").join_path
+local get_gitignore_list = require("nv.telescope.utils").get_gitignore_list
 
 local M = {}
 
 -- *******************************
 -- Gitignore (Quick implementation)
 -- *******************************
-local get_gi_list = function()
-  local results = {}
-  local list = Job
-    :new({
-      command = "curl",
-      args = { "-sL", "https://www.toptal.com/developers/gitignore/api/list" },
-    })
-    :sync()
-
-  if list then
-    for _, item in ipairs(list) do
-      local row = vim.split(item, ",")
-      for _, v in ipairs(row) do
-        table.insert(results, v)
-      end
-    end
-  end
-
-  return results
-end
 
 local get_gi_file = function(items)
   vim.fn.system({
@@ -51,7 +31,7 @@ M.gitignore = function()
   pickers.new(opts, {
     prompt_title = "~ gitignore.io ~",
     finder = finders.new_table({
-      results = get_gi_list(),
+      results = get_gitignore_list(),
     }),
     sorter = config.generic_sorter(opts),
     attach_mappings = function(prompt_bufnr, map)
