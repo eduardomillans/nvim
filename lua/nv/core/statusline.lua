@@ -1,3 +1,4 @@
+-- Set statusline
 local _cwd = vim.loop.cwd()
 local _version = vim.version()
 local _status = { modified = "[+]", readonly = "[-]", unnamed = "[No Name]" }
@@ -39,9 +40,7 @@ local _modes = {
   ["t"] = "TERMINAL",
 }
 
--- *******************************
--- Statusline components
--- *******************************
+-- Components
 local mode = function()
   return _modes[vim.api.nvim_get_mode().mode]:upper()
 end
@@ -73,6 +72,7 @@ local git = function()
   return vim.trim(("%s %s"):format(#branch > 0 and "" or "", branch))
 end
 
+-- TODO: Better implementation
 local lsp_client = function()
   for _, client in ipairs(vim.lsp.buf_get_clients()) do
     if client.name ~= "null-ls" then
@@ -117,9 +117,7 @@ local location = function()
   return "%l:%c"
 end
 
--- *******************************
--- Set statusline
--- *******************************
+-- Build
 StatusLine = function()
   local components = {
     "%#StatusLineA#",
@@ -171,9 +169,7 @@ StatusLine = function()
   return table.concat(components)
 end
 
--- *******************************
--- Statusline autocmd
--- *******************************
+-- Autocmd
 vim.cmd([[
   augroup StatusLine
   au!

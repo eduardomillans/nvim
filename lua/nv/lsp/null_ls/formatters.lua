@@ -2,9 +2,7 @@ local len = vim.g.nv.len
 
 local M = {}
 
--- *******************************
 -- Set formatters
--- *******************************
 M.set = function(sources, null_ls)
   local formatters = {
     black = {

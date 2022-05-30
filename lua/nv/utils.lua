@@ -1,112 +1,27 @@
 local M = {}
 
 local cmd = vim.cmd
-local api = vim.api
 
 local sep = vim.loop.os_uname().sysname == "Windows_NT" and "\\" or "/"
 
--- *******************************
--- Vim option
--- *******************************
-local Option = {}
-
-function Option:new(property, value, action)
-  local instance = {
-    property = property,
-    value = value,
-    action = action,
-  }
-
-  setmetatable(instance, self)
-  self.__index = self
-
-  return instance
-end
-
-function Option:save()
-  local action = "="
-
-  if self.action == "append" then
-    action = "+="
-  elseif self.action == "prepend" then
-    action = "^="
-  elseif self.action == "remove" then
-    action = "-="
+-- Set highlight
+M.hi = function(group, args)
+  if type(args) == "string" then
+    cmd(("hi! link %s %s"):format(group, args))
+    return
   end
 
-  if self.value == true then
-    cmd(("set %s"):format(self.property))
-  elseif self.value == false then
-    cmd(("set no%s"):format(self.property))
-  else
-    cmd(("set %s%s%s"):format(self.property, action, self.value))
-  end
-end
+  local highlight = { "hi!", group }
 
-M.opt = function(property, value, action)
-  action = action or nil
-  return Option:new(property, value, action)
-end
-
--- *******************************
--- Vim keymap
--- *******************************
-local Keymap = {}
-
-function Keymap:new(modes, key, action, opts)
-  local instance = {
-    modes = modes,
-    key = key,
-    action = action,
-    opts = opts,
-  }
-
-  setmetatable(instance, self)
-  self.__index = self
-
-  return instance
-end
-
-function Keymap:save()
-  for _, mode in ipairs(self.modes) do
-    api.nvim_set_keymap(mode, self.key, self.action, self.opts)
-  end
-end
-
-M.map = function(modes, key, action, opts)
-  -- Validations
-  vim.validate({
-    modes = {
-      modes,
-      function(value)
-        return type(value) == "string" or type(value) == "table"
-      end,
-      "string or table",
-    },
-    key = { key, "string" },
-    action = { action, "string" },
-    opts = { opts, "table", true },
-  })
-
-  modes = type(modes) == "string" and { modes } or modes
-  local _opts = { noremap = false, silent = false, expr = false, nowait = false }
-
-  if opts ~= nil and not vim.tbl_isempty(opts) then
-    for _, opt in ipairs(opts) do
-      if opt == "cmd" then
-        action = ("<Esc>:%s<CR>"):format(action)
-      elseif vim.tbl_contains(vim.tbl_keys(_opts), opt) then
-        _opts[opt] = true
-      end
-    end
+  for k, v in pairs(args) do
+    k = k:gsub("gui", "")
+    table.insert(highlight, ("gui%s=%s"):format(k, v))
   end
 
-  return Keymap:new(modes, key, action, _opts)
+  cmd(table.concat(highlight, " "))
 end
 
--- *******************************
 -- Join path
--- *******************************
 M.join_path = function(...)
   return table.concat({ ... }, sep)
 end

@@ -1,4 +1,6 @@
--- TODO: Convert to lua
+-- TODO: Switch to lua
+
+-- Set tabline
 vim.cmd([[
   function! MyTabLine()
     let s = ''

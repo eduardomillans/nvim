@@ -1,14 +1,12 @@
-local is_installed, telescope = pcall(require, "telescope")
-local _, actions = pcall(require, "telescope.actions")
+-- Telescope
+pcall(function()
+  local telescope = require("telescope")
+  local actions = require("telescope.actions")
 
-local map = require("nv.utils").map
+  local map = vim.keymap.set
+  local fb_actions = telescope.extensions.file_browser.actions
 
-local fb_actions = telescope.extensions.file_browser.actions
-
--- *******************************
--- Telescope setup
--- *******************************
-local setup = function()
+  -- Setup
   telescope.setup({
     defaults = {
       prompt_prefix = " ❯ ",
@@ -66,6 +64,7 @@ local setup = function()
         previewer = false,
         initial_mode = "normal",
         disable_devicons = true,
+        path = "%:p:h",
         hijack_netrw = true,
         mappings = {
           -- Disable all insert mode mapping
@@ -103,46 +102,25 @@ local setup = function()
       },
     },
   })
-end
 
--- *******************************
--- Load telescope extensions
--- *******************************
-local load_extensions = function()
+  -- Extensions
   local exts = { "fzf", "file_browser" }
 
   for _, ext in ipairs(exts) do
     telescope.load_extension(ext)
   end
-end
 
--- *******************************
--- Set telescope keymaps
--- *******************************
-local set_keymaps = function()
-  local keymaps = {
-    map({ "i", "n" }, "<C-b>", "Telescope buffers", { "cmd", "silent" }),
-    map({ "i", "n" }, "<C-f>", "Telescope find_files", { "cmd", "silent" }),
-    map({ "i", "n" }, "<C-s>", "Telescope live_grep", { "cmd", "silent" }),
-    map({ "i", "n" }, "<C-g>", "Telescope git_status", { "cmd", "silent" }),
-    map({ "i", "n" }, ",<C-g>", 'lua require("nv.telescope.pickers").gitignore()', { "cmd", "silent" }),
-    -- For lsp
-    map("n", "gx", "Telescope lsp_references", { "cmd", "silent" }),
-    map("n", ",gd", "Telescope diagnostics", { "cmd", "silent" }),
-  }
-
-  for _, keymap in ipairs(keymaps) do
-    keymap:save()
-  end
-end
-
--- *******************************
--- Init
--- *******************************
-if is_installed then
-  setup()
-  load_extensions()
-  set_keymaps()
-
+  -- Command
   vim.api.nvim_create_user_command("Ex", "Telescope file_browser", {})
-end
+
+  -- Keymaps
+  map("n", "<C-b>", "<CMD>Telescope buffers<CR>", { noremap = true })
+  map("n", "<C-f>", "<CMD>Telescope find_files<CR>", { noremap = true })
+  map("n", "<C-s>", "<CMD>Telescope live_grep<CR>", { noremap = true })
+  map("n", "<C-g>s", "<CMD>Telescope git_status<CR>", { noremap = true })
+  map("n", "<C-g>i", function()
+    require("nv.telescope.pickers").gitignore()
+  end, { noremap = true })
+  map("n", "gx", "<CMD>Telescope lsp_references<CR>", { noremap = true })
+  map("n", ",gd", "<CMD>Telescope diagnostics<CR>", { noremap = true })
+end)

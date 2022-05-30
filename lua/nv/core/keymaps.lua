@@ -1,41 +1,24 @@
-local map = require("nv.utils").map
+local map = vim.keymap.set
 
--- *******************************
--- List of keymaps
--- *******************************
-local keymaps = {
-  -- Resize windows
-  map("n", "<M-k>", "resize -2", { "cmd", "silent" }),
-  map("n", "<M-j>", "resize +2", { "cmd", "silent" }),
-  map("n", "<M-h>", "vertical resize -2", { "cmd", "silent" }),
-  map("n", "<M-l>", "vertical resize +2", { "cmd", "silent" }),
+-- Set keymaps
+map("n", "<M-k>", "<CMD>resize -2<CR>", { silent = true })
+map("n", "<M-j>", "<CMD>resize +2<CR>", { silent = true })
+map("n", "<M-h>", "<CMD>vertical resize -2<CR>", { silent = true })
+map("n", "<M-l>", "<CMD>vertical resize +2<CR>", { silent = true })
 
-  -- Switch buffer
-  map("n", "gn", "bnext", { "cmd", "silent" }),
-  map("n", "gp", "bprevious", { "cmd", "silent" }),
+map("n", "gn", "<CMD>bnext<CR>", { silent = true })
+map("n", "gp", "<CMD>bprevious<CR>", { silent = true })
 
-  -- Better indenting
-  map("n", "<", "<<", { "noremap" }),
-  map("n", ">", ">>", { "noremap" }),
-  map("v", "<", "<gv", { "noremap" }),
-  map("v", ">", ">gv", { "noremap" }),
+map("n", "<", "<<", { noremap = true })
+map("n", ">", ">>", { noremap = true })
+map("v", "<", "<gv", { noremap = true })
+map("v", ">", ">gv", { noremap = true })
 
-  -- Buffer action
-  map("n", "yae", "ggyG", { "noremap" }),
-  map("n", "cae", "ggcG", { "noremap" }),
-  map("n", "dae", "ggdG", { "noremap" }),
-  map("n", "vae", "ggVG", { "noremap" }),
+map("n", "yae", "ggyG", { noremap = true })
+map("n", "cae", "ggcG", { noremap = true })
+map("n", "dae", "ggdG", { noremap = true })
+map("n", "vae", "ggVG", { noremap = true })
 
-  -- Toggle hlsearch
-  map("n", ",,h", "set hlsearch!", { "cmd", "silent" }),
+map("n", ",,h", "<CMD>set hlsearch!<CR>", { silent = true })
 
-  -- Normal mode in terminal
-  map("t", "<C-\\><Esc>", "<C-\\><C-n>", { "noremap" }),
-}
-
--- *******************************
--- Init
--- *******************************
-for _, keymap in ipairs(keymaps) do
-  keymap:save()
-end
+map("t", "<C-\\><Esc>", "<C-\\><C-n>", { noremap = true })

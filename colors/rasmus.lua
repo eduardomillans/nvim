@@ -4,6 +4,8 @@
    * Credits: https://github.com/kvrohit/rasmus.nvim *
    *************************************************]]
 
+local hi = require("nv.utils").hi
+
 -- Colors
 local colors = {
   -- Primary
@@ -46,23 +48,6 @@ vim.cmd("hi clear")
 
 if vim.fn.exists("syntax_on") then
   vim.cmd("syntax reset")
-end
-
--- Highlight wrapper
-local hi = function(group, args)
-  if type(args) == "string" then
-    vim.cmd(("hi! link %s %s"):format(group, args))
-    return
-  end
-
-  local highlight = { "hi!", group }
-
-  for k, v in pairs(args) do
-    k = k:gsub("gui", "")
-    table.insert(highlight, ("gui%s=%s"):format(k, v))
-  end
-
-  vim.cmd(table.concat(highlight, " "))
 end
 
 -- Terminal

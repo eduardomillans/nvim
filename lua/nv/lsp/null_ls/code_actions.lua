@@ -1,8 +1,6 @@
 local M = {}
 
--- *******************************
 -- Set code actions
--- *******************************
 M.set = function(sources, null_ls)
   local code_actions = {}
 

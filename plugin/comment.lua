@@ -1,15 +1,7 @@
-local is_installed, comment = pcall(require, "Comment")
+-- Comment
+pcall(function()
+  local comment = require("Comment")
 
--- *******************************
--- Comment setup
--- *******************************
-local setup = function()
+  -- Setup
   comment.setup()
-end
-
--- *******************************
--- Init
--- *******************************
-if is_installed then
-  setup()
-end
+end)

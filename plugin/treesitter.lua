@@ -1,9 +1,8 @@
-local is_installed, treesitter = pcall(require, "nvim-treesitter.configs")
+-- Treesiter
+pcall(function()
+  local treesitter = require("nvim-treesitter.configs")
 
--- *******************************
--- Treesitter setup
--- *******************************
-local setup = function()
+  -- Setup
   treesitter.setup({
     ensure_installed = {
       "bash",
@@ -34,11 +33,4 @@ local setup = function()
       enable = true,
     },
   })
-end
-
--- *******************************
--- Init
--- *******************************
-if is_installed then
-  setup()
-end
+end)

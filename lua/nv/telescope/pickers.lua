@@ -5,33 +5,19 @@ local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 local themes = require("telescope.themes")
 
-local join_path = require("nv.utils").join_path
-local get_gitignore_list = require("nv.telescope.utils").get_gitignore_list
+local utils = require("nv.telescope.utils")
 
 local M = {}
 
--- *******************************
--- Gitignore (Quick implementation)
--- *******************************
-
-local get_gi_file = function(items)
-  vim.fn.system({
-    "curl",
-    "-sLo",
-    join_path(vim.loop.cwd(), ".gitignore"),
-    ("https://www.toptal.com/developers/gitignore/api/%s"):format(items),
-  })
-
-  vim.notify("Gitignore downloaded", vim.log.levels.INFO, { title = "Neovim" })
-end
-
+-- Gitignore picker
+-- TODO: Add preview
 M.gitignore = function()
   local opts = themes.get_dropdown()
 
   pickers.new(opts, {
     prompt_title = "~ gitignore.io ~",
     finder = finders.new_table({
-      results = get_gitignore_list(),
+      results = utils.fetch_gitginore_list(),
     }),
     sorter = config.generic_sorter(opts),
     attach_mappings = function(prompt_bufnr, map)
@@ -48,7 +34,7 @@ M.gitignore = function()
           items = { action_state.get_selected_entry()[1] }
         end
 
-        get_gi_file(table.concat(items, ","))
+        utils.fetch_gitignore_file(table.concat(items, ","))
 
         actions.close(prompt_bufnr)
       end)

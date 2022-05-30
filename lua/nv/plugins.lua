@@ -1,14 +1,13 @@
-local is_installed, packer = pcall(require, "packer")
-local join_path = require("nv.utils").join_path
+-- Packer
+pcall(function()
+  local packer = require("packer")
+  local utils = require("nv.utils")
 
-local nv = vim.g.nv
+  local nv = vim.g.nv
 
--- *******************************
--- Packer setup
--- *******************************
-local setup = function()
+  -- Setup
   packer.init({
-    compile_path = join_path(nv.dir.nvim.config, "packer", "compiled.lua"),
+    compile_path = utils.join_path(nv.dir.nvim.config, "packer", "compiled.lua"),
     git = {
       subcommands = {
         fetch = "fetch --no-tags --no-recurse-submodules --update-shallow --progress",
@@ -16,6 +15,12 @@ local setup = function()
     },
   })
 
+  -- Command
+  vim.api.nvim_create_user_command("Sync", function()
+    vim.cmd(("source %s/lua/nv/plugins.lua | PackerSync"):format(nv.dir.nvim.config))
+  end, {})
+
+  -- Plugins
   packer.startup(function(use)
     -- Packer itself
     use({ "wbthomason/packer.nvim" })
@@ -67,11 +72,4 @@ local setup = function()
     -- Markdown
     use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install" })
   end)
-end
-
--- *******************************
--- Init
--- *******************************
-if is_installed then
-  setup()
-end
+end)

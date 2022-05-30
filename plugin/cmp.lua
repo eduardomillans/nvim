@@ -1,20 +1,21 @@
-local is_installed, cmp = pcall(require, "cmp")
-local _, types = pcall(require, "cmp.types")
+-- Cmp
+pcall(function()
+  local cmp = require("cmp")
+  local types = require("cmp.types")
 
-local stats = vim.api.nvim_list_uis()[1]
-local maxwidth = math.ceil(stats.width > 175 and stats.width * 0.5 or stats.width * 0.35)
-local maxheight = math.ceil(stats.height > 35 and stats.height * 0.25 or stats.height * 0.5)
+  -- Width and height
+  local stats = vim.api.nvim_list_uis()[1]
+  local maxwidth = math.ceil(stats.width > 175 and stats.width * 0.5 or stats.width * 0.35)
+  local maxheight = math.ceil(stats.height > 35 and stats.height * 0.25 or stats.height * 0.5)
 
-local menu = {
-  nvim_lsp = "[Lsp]",
-  nvim_lua = "[Lua]",
-  path = "[Path]",
-}
+  -- Menu kind
+  local menu = {
+    nvim_lsp = "[Lsp]",
+    nvim_lua = "[Lua]",
+    path = "[Path]",
+  }
 
--- *******************************
--- Cmp setup
--- *******************************
-local setup = function()
+  -- Setup
   cmp.setup({
     completion = {
       autocomplete = false,
@@ -60,11 +61,4 @@ local setup = function()
       { name = "vsnip" },
     }),
   })
-end
-
--- *******************************
--- Init
--- *******************************
-if is_installed then
-  setup()
-end
+end)

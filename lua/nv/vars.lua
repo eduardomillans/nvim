@@ -3,9 +3,7 @@ local stdpath = vim.fn.stdpath
 local expand = vim.fn.expand
 local is_win = sysname == "Windows_NT"
 
--- *******************************
--- Load local variables
--- *******************************
+-- Set global neovim variables
 vim.g.nv = {
   is_linux = sysname == "Linux",
   is_mac = sysname == "Darwin",
@@ -27,8 +25,6 @@ vim.g.nv = {
   },
 }
 
--- *******************************
--- Load env variables
--- *******************************
+-- Set env variables
 vim.env.PRETTIERD_DEFAULT_CONFIG = expand("~/.config/nvim/.prettierrc.json")
 vim.env.WORKSPACE = expand("~/dev/java")

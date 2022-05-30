@@ -1,9 +1,8 @@
-local is_installed, fidget = pcall(require, "fidget")
+-- Fidget
+pcall(function()
+  local fidget = require("fidget")
 
--- *******************************
--- Fidget setup
--- *******************************
-local setup = function()
+  -- Setup
   fidget.setup({
     text = {
       spinner = "meter",
@@ -14,11 +13,4 @@ local setup = function()
       blend = 50,
     },
   })
-end
-
--- *******************************
--- Init
--- *******************************
-if is_installed then
-  setup()
-end
+end)

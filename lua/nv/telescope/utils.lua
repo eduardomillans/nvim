@@ -1,12 +1,10 @@
-local state = require("telescope.actions.state")
 local Job = require("plenary.job")
+local join_path = require("nv.utils").join_path
 
 local M = {}
 
--- *******************************
--- Get gitignore list
--- *******************************
-M.get_gitignore_list = function()
+-- Fetch gitginore list
+M.fetch_gitginore_list = function()
   local results = {}
 
   local list = Job
@@ -28,13 +26,16 @@ M.get_gitignore_list = function()
   return results
 end
 
--- *******************************
--- Delete buffer
--- *******************************
-M.delete_buffer = function()
-  local entry = state.get_selected_entry()
-  vim.api.nvim_buf_delete(entry.bufnr, {})
-  vim.cmd("Telescope buffers")
+-- Fetch gitignore file
+M.fetch_gitignore_file = function(items)
+  vim.fn.system({
+    "curl",
+    "-sLo",
+    join_path(vim.loop.cwd(), ".gitignore"),
+    ("https://www.toptal.com/developers/gitignore/api/%s"):format(items),
+  })
+
+  vim.notify("Gitignore downloaded", vim.log.levels.INFO, { title = "Neovim" })
 end
 
 return M

@@ -4,9 +4,7 @@ local stats = vim.api.nvim_list_uis()[1]
 local maxwidth = math.ceil(stats.width > 175 and stats.width * 0.5 or stats.width * 0.35)
 local maxheight = math.ceil(stats.height > 35 and stats.height * 0.25 or stats.height * 0.5)
 
--- *******************************
 -- Signature help
--- *******************************
 M.signature_help = function()
   local text = vim.fn.getline(".")
   local col = vim.fn.col(".")
@@ -61,9 +59,7 @@ M.signature_help = function()
   end)
 end
 
--- *******************************
 -- Hover
--- *******************************
 M.hover = function()
   local params = vim.lsp.util.make_position_params()
 

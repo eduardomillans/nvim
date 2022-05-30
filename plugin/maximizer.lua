@@ -1,15 +1,7 @@
-local is_installed, maximizer = pcall(require, "maximizer")
+-- Maximizer
+pcall(function()
+  local maximizer = require("maximizer")
 
--- *******************************
--- Maximizer setup
--- *******************************
-local setup = function()
+  -- Setup
   maximizer.setup({})
-end
-
--- *******************************
--- Init
--- *******************************
-if is_installed then
-  setup()
-end
+end)
