@@ -23,26 +23,15 @@ local setup = function()
 
   -- Initialize each server
   for server, opts in pairs(servers) do
-    if server ~= "rust_tools" then
-      lsp[server].setup(opts)
-    else
-      require("rust-tools").setup({ server = opts })
-    end
+    lsp[server].setup(opts)
   end
 
-  --[[ lsp_installer.on_server_ready(function(server)
-    local opts = servers[server.name]
+  -- Initialize rust tool
+  --[[ local ok, rust_tools = pcall(require, "rust-tools")
 
-    if server.name == "rust_analyzer" then
-      require("rust-tools").setup({
-        server = vim.tbl_deep_extend("force", server:get_default_options(), opts),
-      })
-
-      server:attach_buffers()
-    else
-      server:setup(opts)
-    end
-  end) ]]
+  if ok then
+    rust_tools.setup({ server = servers.rust_analyzer })
+  end ]]
 end
 
 -- *******************************

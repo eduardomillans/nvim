@@ -27,7 +27,7 @@ local keymaps = {
   map("n", "vae", "ggVG", { "noremap" }),
 
   -- Toggle hlsearch
-  map("n", ",nh", "set hlsearch!", { "cmd", "silent" }),
+  map("n", ",,h", "set hlsearch!", { "cmd", "silent" }),
 
   -- Normal mode in terminal
   map("t", "<C-\\><Esc>", "<C-\\><C-n>", { "noremap" }),

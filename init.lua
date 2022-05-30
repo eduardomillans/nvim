@@ -8,6 +8,6 @@ require("nv.core")
 require("nv.plugins")
 
 -- Global functions
-Print = function(value)
-  print(vim.inspect(value))
+P = function(value)
+  vim.pretty_print(value)
 end

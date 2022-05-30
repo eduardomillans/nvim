@@ -1,5 +1,7 @@
-local cwd = vim.loop.cwd()
-local modes = {
+local _cwd = vim.loop.cwd()
+local _version = vim.version()
+local _status = { modified = "[+]", readonly = "[-]", unnamed = "[No Name]" }
+local _modes = {
   ["n"] = "NORMAL",
   ["no"] = "O-PENDING",
   ["nov"] = "O-PENDING",
@@ -41,21 +43,25 @@ local modes = {
 -- Statusline components
 -- *******************************
 local mode = function()
-  return modes[vim.api.nvim_get_mode().mode]:upper()
+  return _modes[vim.api.nvim_get_mode().mode]:upper()
 end
 
 local filename = function()
-  local path = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.")
+  local path = vim.fn.expand("%:~:.")
 
-  if path == "" or path == "." then
-    path = "[No Name]"
+  if #path == 0 then
+    return _status.unnamed
   end
 
-  return path
+  -- TODO: use %m?
+  return ("%s %s"):format(
+    path,
+    (vim.bo.readonly or not vim.bo.modifiable) and _status.readonly or (vim.bo.modified and _status.modified or "")
+  )
 end
 
 local git = function()
-  local file = ("%s/.git/HEAD"):format(cwd)
+  local file = ("%s/.git/HEAD"):format(_cwd)
 
   if vim.fn.filereadable(file) == 0 then
     return ""
@@ -89,6 +95,10 @@ local lsp_diagnostics = function()
   end
 
   return table.concat(diagnostics, "  ")
+end
+
+local version = function()
+  return ("v%s.%s"):format(_version.major, _version.minor)
 end
 
 local filetype = function()
@@ -135,7 +145,7 @@ StatusLine = function()
     "%=",
     ---
     "%#StatusLineC#",
-    lsp_client(),
+    version(),
     ---
     " ",
     "%#StatuslineBS#",

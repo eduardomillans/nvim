@@ -57,6 +57,7 @@ local setup = function()
       { name = "nvim_lua" },
       { name = "nvim_lsp" },
       { name = "path" },
+      { name = "vsnip" },
     }),
   })
 end

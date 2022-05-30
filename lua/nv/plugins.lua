@@ -30,7 +30,6 @@ local setup = function()
     use({ "neovim/nvim-lspconfig" })
     use({ "williamboman/nvim-lsp-installer" })
     use({ "jose-elias-alvarez/null-ls.nvim" })
-    use({ "simrat39/rust-tools.nvim" })
 
     -- Completion
     use({
@@ -48,6 +47,7 @@ local setup = function()
     -- Fuzzy finder
     use({ "nvim-telescope/telescope.nvim" })
     use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+    use({ "nvim-telescope/telescope-file-browser.nvim" })
 
     -- Progress
     use({ "j-hui/fidget.nvim" })
@@ -59,7 +59,7 @@ local setup = function()
     use({ "norcalli/nvim-colorizer.lua" })
 
     -- Comments
-    use({ "b3nj5m1n/kommentary" })
+    use({ "numToStr/Comment.nvim" })
 
     -- Surround
     use({ "tpope/vim-surround" })
