@@ -8,4 +8,4 @@ require("nv.core.statusline")
 -- *******************************
 -- Set colorscheme
 -- *******************************
-vim.cmd("colorscheme tomorrow_night")
+vim.cmd("colorscheme rasmus")
