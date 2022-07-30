@@ -1,35 +1,40 @@
--- TODO: Switch to lua
+local fn = vim.fn
 
--- Set tabline
-vim.cmd([[
-  function! MyTabLine()
-    let s = ''
-    for i in range(tabpagenr('$'))
-      " select the highlighting
-      if i + 1 == tabpagenr()
-        let s .= '%#TabLineSel#'
-      else
-        let s .= '%#TabLine#'
-      endif
+local label = function(n)
+  local buflist = fn.tabpagebuflist(n)
+  local winnr = fn.tabpagewinnr(n)
+  local bufname = fn.bufname(buflist[winnr])
 
-      " set the tab page number (for mouse clicks)
-      let s .= '%' . (i + 1) . 'T'
+  if #bufname == 0 then
+    return "[No Name]"
+  end
 
-      " the label is made by MyTabLabel()
-      let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
-    endfor
+  local parent = fn.fnamemodify(bufname, ":h")
 
-    " after the last tab fill with TabLineFill and reset tab page nr
-    let s .= '%#TabLineFill#%T'
+  local name = {}
 
-    return s
-  endfunction
+  if parent ~= "." then
+    for _, dir in ipairs(vim.split(parent, "/", { trimempty = true })) do
+      table.insert(name, dir:sub(1, 1))
+    end
+  end
 
-  function! MyTabLabel(n)
-    let buflist = tabpagebuflist(a:n)
-    let winnr = tabpagewinnr(a:n)
-    return fnamemodify(expand(bufname(buflist[winnr - 1])), ":~:.")
-  endfunction
+  table.insert(name, fn.fnamemodify(bufname, ":t"))
 
-  set tabline=%!MyTabLine()
-]])
+  return table.concat(name, "/")
+end
+
+Tabline = function()
+  local tabline = {}
+
+  for i = 1, fn.tabpagenr("$") do
+    table.insert(tabline, i == fn.tabpagenr() and "%#TabLineSel#" or "%#TabLine#")
+    table.insert(tabline, ("%%%dT"):format(i))
+    table.insert(tabline, (" %s "):format(label(i)))
+    table.insert(tabline, "%#TabLineFill#%T")
+  end
+
+  return table.concat(tabline)
+end
+
+vim.cmd([[set tabline=%!v:lua.Tabline()]])
