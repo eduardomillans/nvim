@@ -8,7 +8,6 @@ M.set = function(sources, null_ls)
     black = {
       extra_args = { "--line-length", len.text },
     },
-    goimports = {},
     prettierd = {
       disabled_filetypes = { "markdown" },
     },
