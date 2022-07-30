@@ -1,6 +1,7 @@
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
-local config = require("telescope.config").values
+local previewers = require("telescope.previewers")
+local sorters = require("telescope.sorters")
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 local themes = require("telescope.themes")
@@ -10,31 +11,35 @@ local utils = require("nv.telescope.utils")
 local M = {}
 
 -- Gitignore picker
--- TODO: Add preview
+-- TODO: Separate in a plugin?
 M.gitignore = function()
-  local opts = themes.get_dropdown()
+  local opts = themes.get_ivy()
 
   pickers.new(opts, {
     prompt_title = "~ gitignore.io ~",
     finder = finders.new_table({
       results = utils.fetch_gitginore_list(),
+      entry_maker = function(entry)
+        return { value = entry, display = entry.name, ordinal = entry.key }
+      end,
     }),
-    sorter = config.generic_sorter(opts),
+    sorter = sorters.get_generic_fuzzy_sorter(opts),
+    previewer = previewers.new_buffer_previewer({
+      define_preview = function(self, entry)
+        vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, vim.split(entry.value.contents, "\n"))
+      end,
+    }),
     attach_mappings = function(prompt_bufnr, map)
       map("i", "<CR>", function()
-        local items = {}
+        local files = {}
         local picker = action_state.get_current_picker(prompt_bufnr)
         local selection = picker:get_multi_selection()
 
-        if #selection > 0 then
-          for _, selected in ipairs(selection) do
-            table.insert(items, selected[1])
-          end
-        else
-          items = { action_state.get_selected_entry()[1] }
+        for _, entry in ipairs(#selection > 0 and selection or { action_state.get_selected_entry() }) do
+          table.insert(files, entry.value.key)
         end
 
-        utils.fetch_gitignore_file(table.concat(items, ","))
+        utils.fetch_gitignore(files)
 
         actions.close(prompt_bufnr)
       end)
