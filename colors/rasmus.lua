@@ -9,8 +9,8 @@ local hi = require("nv.utils").hi
 -- Colors
 local colors = {
   -- Primary
-  bg = "#1d1d1d",
-  fg = "#c9c9c9",
+  bg = "#1a1a19",
+  fg = "#bcbcbc",
 
   -- Basic
   black = "#333332",
@@ -23,8 +23,8 @@ local colors = {
   white = "#d1d1d1",
 
   -- Grays
-  gray01 = "#242424",
-  gray02 = "#3a3a3a",
+  gray01 = "#222222",
+  gray02 = "#383838",
   gray03 = "#323231",
   gray04 = "#6a6a69",
   gray05 = "#767675",
@@ -103,9 +103,9 @@ local groups = {
   SpecialKey = { fg = colors.gray03 },
   StatusLine = { fg = colors.fg, bg = colors.gray01, gui = styles.none },
   StatusLineNC = { fg = colors.fg, bg = colors.gray01, gui = styles.none },
-  TabLine = { fg = colors.gray06, bg = colors.gray01, gui = styles.none },
-  TabLineFill = { fg = colors.gray01, bg = colors.gray01 },
-  TabLineSel = { fg = colors.gray06, bg = colors.gray01, gui = styles.italic },
+  TabLine = "StatusLine",
+  TabLineFill = "StatusLine",
+  TabLineSel = { fg = colors.bg, bg = colors.gray06 },
   Title = { fg = colors.magenta, bg = colors.none },
   VertSplit = { fg = colors.gray01, bg = colors.gray01, gui = styles.none },
   Visual = { bg = colors.gray03 },
@@ -121,7 +121,7 @@ local groups = {
   Define = { fg = colors.cyan },
   Delimiter = { fg = colors.gray06 },
   Error = { fg = colors.red, bg = colors.none },
-  Exception = { fg = colors.yellow },
+  Exception = { fg = colors.red },
   Float = { fg = colors.cyan },
   Function = { fg = colors.blue, gui = styles.italic },
   Identifier = { fg = colors.blue },
@@ -136,8 +136,8 @@ local groups = {
   PreProc = { fg = colors.red },
   Repeat = { fg = colors.blue, gui = styles.italic },
   Special = { fg = colors.blue, gui = styles.italic },
-  SpecialChar = { fg = colors.cyan },
-  SpecialComment = { fg = colors.blue },
+  SpecialChar = { fg = colors.cyan, gui = styles.italic },
+  SpecialComment = { fg = colors.blue, gui = styles.italic },
   Statement = { fg = colors.blue },
   StorageClass = { fg = colors.cyan },
   String = { fg = colors.cyan },
@@ -160,28 +160,21 @@ local groups = {
   DiffChange = { fg = colors.yellow, bg = colors.none },
   DiffDelete = { fg = colors.red, bg = colors.none },
   DiffText = { fg = colors.fg, bg = colors.none },
-  DiffAdded = "DiffAdd",
-  DiffChangeD = "DiffChange",
-  DiffRemoved = "DiffRemove",
+
+  diffAdded = "DiffAdd",
+  diffRemoved = "DiffDelete",
+  diffChanged = "DiffChange",
 
   -- Diagnostics
   DiagnosticError = { fg = colors.red },
   DiagnosticWarn = { fg = colors.yellow },
   DiagnosticInfo = { fg = colors.blue },
   DiagnosticHint = { fg = colors.cyan },
-  DiagnosticUnderlineError = { gui = styles.undercurl, sp = colors.red },
-  DiagnosticUnderlineWarn = { gui = styles.undercurl, sp = colors.yellow },
-  DiagnosticUnderlineInformation = { gui = styles.undercurl, sp = colors.blue },
-  DiagnosticUnderlineHint = { gui = styles.undercurl, sp = colors.cyan },
 
-  LspDiagnosticsDefaultError = "DiagnosticError",
-  LspDiagnosticsDefaultWarning = "DiagnosticWarn",
-  LspDiagnosticsDefaultInformation = "DiagnosticInfo",
-  LspDiagnosticsDefaultHint = "DiagnosticHint",
-  LspDiagnosticsUnderlineError = "DiagnosticUnderlineError",
-  LspDiagnosticsUnderlineWarning = "DiagnosticUnderlineWarning",
-  LspDiagnosticsUnderlineInformation = "DiagnosticUnderlineInformation",
-  LspDiagnosticsUnderlineHint = "DiagnosticUnderlineHint",
+  DiagnosticUnderlineError = { gui = styles.underline, sp = colors.red },
+  DiagnosticUnderlineWarn = { gui = styles.underline, sp = colors.yellow },
+  DiagnosticUnderlineInformation = { gui = styles.underline, sp = colors.blue },
+  DiagnosticUnderlineHint = { gui = styles.underline, sp = colors.cyan },
 
   -- Markdown
   markdownH1 = { fg = colors.white },
@@ -202,11 +195,11 @@ local groups = {
   markdownRule = { fg = colors.gray04 },
   markdownUrl = { fg = colors.gray05 },
   markdownBlockquote = { fg = colors.gray06 },
-  markdownBold = { fg = colors.fg },
+  markdownBold = { fg = colors.fg, gui = styles.bold },
   markdownItalic = { fg = colors.fg, gui = styles.italic },
-  markdownCode = { fg = colors.fg, bg = colors.gray02 },
-  markdownCodeBlock = { fg = colors.fg, bg = colors.gray02 },
-  markdownCodeDelimiter = { fg = colors.fg, bg = colors.gray02 },
+  markdownCode = { fg = colors.fg, bg = colors.none },
+  markdownCodeBlock = { fg = colors.fg, bg = colors.none },
+  markdownCodeDelimiter = { fg = colors.fg, bg = colors.none },
 
   -- TreeSitter highlight groups
   TSAnnotation = { fg = colors.green },
@@ -224,7 +217,7 @@ local groups = {
   TSEnvironment = { fg = colors.blue },
   TSEnvironmentName = { fg = colors.blue },
   TSError = { fg = colors.red },
-  TSException = { fg = colors.yellow },
+  TSException = { fg = colors.red },
   TSField = { fg = colors.fg },
   TSFloat = { fg = colors.cyan },
   TSFuncBuiltin = { fg = colors.fg, gui = styles.italic },
@@ -238,7 +231,7 @@ local groups = {
   TSLabel = { fg = colors.yellow },
   TSLiteral = { fg = colors.fg },
   TSMath = { fg = colors.blue },
-  TSMethod = { fg = colors.blue, gui = styles.italic },
+  TSMethod = { fg = colors.fg, gui = styles.italic },
   TSNamespace = { fg = colors.blue },
   TSNone = { fg = colors.fg },
   TSNote = { fg = colors.blue, gui = styles.italic },
@@ -253,9 +246,9 @@ local groups = {
   TSRepeat = { fg = colors.blue, gui = styles.italic },
   TSStrike = { fg = colors.bg, gui = styles.strikethrough },
   TSString = { fg = colors.cyan },
-  TSStringEscape = { fg = colors.cyan },
-  TSStringRegex = { fg = colors.green },
-  TSStringSpecial = { fg = colors.green },
+  TSStringEscape = { fg = colors.cyan, gui = styles.italic },
+  TSStringRegex = { fg = colors.cyan, gui = styles.italic },
+  TSStringSpecial = { fg = colors.cyan, gui = styles.italic },
   TSStrong = { fg = colors.white },
   TSSymbol = { fg = colors.green },
   TSTag = { fg = colors.yellow },
@@ -267,22 +260,25 @@ local groups = {
   TSType = { fg = colors.fg },
   TSTypeBuiltin = { fg = colors.blue },
   TSURI = { fg = colors.cyan },
-  TSUnderline = { fg = colors.white, gui = styles.underline },
+  TSUnderline = { gui = styles.underline },
   TSVariable = { fg = colors.fg },
   TSVariableBuiltin = { fg = colors.yellow },
   TSWarning = { fg = colors.yellow, gui = styles.italic },
 
   -- Telescope
-  TelescopePromptPrefix = "TelescopePromptTitle",
+  TelescopeBorder = { fg = colors.fg },
+  TelescopePromptPrefix = { fg = colors.fg },
+  TelescopePromptCounter = { fg = colors.gray04 },
   TelescopeMatching = { fg = colors.blue },
 
   -- Cmp
   CmpItemAbbrMatch = { fg = colors.fg },
   CmpItemAbbrMatchFuzzy = { fg = colors.fg },
   CmpItemAbbrDeprecated = { fg = colors.fg },
+
   -- Fidget
-  FidgetTitle = { fg = colors.blue, gui = styles.italic },
-  FidgetTask = { fg = colors.gray04, gui = styles.italic },
+  FidgetTitle = { fg = colors.blue },
+  FidgetTask = { fg = colors.gray04 },
 
   -- Maximizer
   MaximizerWin = { fg = colors.fg, bg = colors.bg },
