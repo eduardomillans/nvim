@@ -22,18 +22,15 @@ pcall(function()
 
   -- Plugins
   packer.startup(function(use)
-    -- Packer itself
-    use({ "wbthomason/packer.nvim" })
-
-    -- Required by lua plugins
-    use({ "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" })
+    -- Important
+    use({ "wbthomason/packer.nvim", "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" })
 
     -- Personal
-    use({ "~/dev/projects/maximizer.nvim" })
+    use({ "eduardomillans/maximizer.nvim" })
 
     -- Lsp
     use({ "neovim/nvim-lspconfig" })
-    use({ "williamboman/nvim-lsp-installer" })
+    use({ "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim" })
     use({ "jose-elias-alvarez/null-ls.nvim" })
 
     -- Completion
@@ -52,13 +49,9 @@ pcall(function()
     -- Fuzzy finder
     use({ "nvim-telescope/telescope.nvim" })
     use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-    use({ "nvim-telescope/telescope-file-browser.nvim" })
 
     -- Progress
     use({ "j-hui/fidget.nvim" })
-
-    -- Git
-    use({ "tpope/vim-fugitive" })
 
     -- Colorize
     use({ "norcalli/nvim-colorizer.lua" })
@@ -67,7 +60,7 @@ pcall(function()
     use({ "numToStr/Comment.nvim" })
 
     -- Surround
-    use({ "tpope/vim-surround" })
+    use({ "kylechui/nvim-surround" })
 
     -- Markdown
     use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install" })
