@@ -24,7 +24,7 @@ M.signature_help = function()
 
   vim.lsp.buf_request(0, "textDocument/signatureHelp", params, function(_, result, ctx, config)
     config = config or {}
-    config.border = "rounded"
+    -- config.border = "rounded"
     config.focus_id = ctx.method
     config.max_width = maxwidth
     config.max_height = maxheight
@@ -65,7 +65,7 @@ M.hover = function()
 
   vim.lsp.buf_request(0, "textDocument/hover", params, function(_, result, ctx, config)
     config = config or {}
-    config.border = "rounded"
+    -- config.border = "rounded"
     config.focus_id = ctx.method
     config.max_width = maxwidth
     config.max_height = maxheight

@@ -5,7 +5,7 @@ pcall(function()
   -- Setup
   fidget.setup({
     text = {
-      spinner = "meter",
+      spinner = "dots",
       done = "✓",
     },
     window = {

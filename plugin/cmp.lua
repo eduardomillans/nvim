@@ -3,18 +3,6 @@ pcall(function()
   local cmp = require("cmp")
   local types = require("cmp.types")
 
-  -- Width and height
-  local stats = vim.api.nvim_list_uis()[1]
-  local maxwidth = math.ceil(stats.width > 175 and stats.width * 0.5 or stats.width * 0.35)
-  local maxheight = math.ceil(stats.height > 35 and stats.height * 0.25 or stats.height * 0.5)
-
-  -- Menu kind
-  local menu = {
-    nvim_lsp = "[Lsp]",
-    nvim_lua = "[Lua]",
-    path = "[Path]",
-  }
-
   -- Setup
   cmp.setup({
     completion = {
@@ -27,19 +15,11 @@ pcall(function()
     },
     window = {
       completion = {
-        border = "rounded",
-      },
-      documentation = {
-        border = "rounded",
-        maxwidth = maxwidth,
-        maxheight = maxheight,
+        winhighlight = "Normal:NormalFloat,FloatBorder:NormalFloat,CursorLine:PmenuSel,Search:None",
       },
     },
     formatting = {
-      format = function(entry, vim_item)
-        vim_item.menu = menu[entry.source.name]
-        return vim_item
-      end,
+      fields = { "abbr", "kind" },
     },
     mapping = {
       ["<C-y>"] = cmp.config.disable,
@@ -53,6 +33,7 @@ pcall(function()
       ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = types.cmp.SelectBehavior.Select }),
       ["<CR>"] = cmp.mapping.confirm({ select = false }),
       ["<M-CR>"] = cmp.mapping.complete(),
+      ["᎑"] = cmp.mapping.complete(),
     },
     sources = cmp.config.sources({
       { name = "nvim_lua" },

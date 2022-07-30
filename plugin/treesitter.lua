@@ -18,7 +18,6 @@ pcall(function()
       "jsonc",
       "lua",
       "make",
-      "markdown",
       "prisma",
       "python",
       "query",
@@ -32,5 +31,11 @@ pcall(function()
     highlight = {
       enable = true,
     },
+    indent = {
+      enable = false,
+    },
   })
+
+  -- Keymaps
+  vim.keymap.set("n", ",,g", "<CMD>TSCaptureUnderCursor<CR>", { noremap = true, silent = true })
 end)

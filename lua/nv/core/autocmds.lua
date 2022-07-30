@@ -20,7 +20,8 @@ autocmd("BufWritePre", {
   group = group,
 })
 
-autocmd("TermOpen", { pattern = "*", command = "setlocal norelativenumber" })
+autocmd("TermOpen", { pattern = "*", command = "setlocal norelativenumber", group = group })
 
+autocmd({ "BufRead", "BufNewFile" }, { pattern = "*.h", command = "setlocal filetype=c", group = group })
 autocmd({ "BufRead", "BufNewFile" }, { pattern = "*.zsh-theme", command = "setlocal filetype=zsh", group = group })
 autocmd({ "BufRead", "BufNewFile" }, { pattern = "tsconfig.json", command = "setlocal filetype=jsonc", group = group })

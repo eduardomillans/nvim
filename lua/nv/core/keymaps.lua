@@ -20,5 +20,6 @@ map("n", "dae", "ggdG", { noremap = true })
 map("n", "vae", "ggVG", { noremap = true })
 
 map("n", ",,h", "<CMD>set hlsearch!<CR>", { silent = true })
+map("n", ",,c", "<CMD>ColorizerToggle<CR>", { silent = true })
 
 map("t", "<C-\\><Esc>", "<C-\\><C-n>", { noremap = true })
